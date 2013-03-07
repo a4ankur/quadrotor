@@ -1,0 +1,24 @@
+public class GenericValidator
+{
+    public class CaptureValidationException extends Exception {}
+    
+    public static void validate(List<SObject> sObjects)
+    {
+        List<string> errs = new List<string>();
+        for (SObject o : sObjects)
+        {
+            string status = (string)o.get('Status__c');
+            if ((status  != 'Pass' )  || (status != 'Unknown')){  errs.add( ' - ' + o.id  );}
+        }
+
+        
+        if (errs.size() > 0)
+        {
+            string msg = '';
+            for(string  err : errs )    {   msg =  msg + '\n' + err ; }
+            msg = 'The following capture items cannot be edited or deleted as they have already been processed : ' + msg;
+            throw new GenericValidator.CaptureValidationException( msg);
+        }
+    }
+}
+

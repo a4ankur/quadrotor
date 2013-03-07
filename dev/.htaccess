@@ -1,0 +1,14 @@
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+
+RewriteEngine On
+
+# LOSE TIMESTAMP AND NAMESPACE
+# ^ beginning of string
+# (.*)/ anything forwardslash
+# \d{13} thirteen digits exactly
+# ([a-z_0-9]+__)? optional alphanumeric namespace
+# (.*) anything
+# $ end of string
+RewriteRule ^(.*)/\d{13}/([a-z_0-9]+__)?(.*)$ $1/$3
