@@ -1,5 +1,5 @@
 
-//alert($Api.Session_ID);
+alert($Api.Session_ID);
 
 //we used eu2.salesforce.com and it tried to use JSONP as transport
 //change to same-origin VF url and it's good.
