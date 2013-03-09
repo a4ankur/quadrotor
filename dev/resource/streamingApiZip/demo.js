@@ -1,5 +1,3 @@
-alert('derp');
-
 dojo.require('dojox.cometd');
 dojo.require('dojox.cometd.timestamp');
 dojo.require('dojox.cometd.ack');
