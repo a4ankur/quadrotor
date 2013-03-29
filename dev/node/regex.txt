@@ -1,0 +1,2 @@
+anything that's not a command
+[^A-Z0-9\,\=\\\*\n\_\-\"\:]+
