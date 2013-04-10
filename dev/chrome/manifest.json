@@ -1,0 +1,23 @@
+{
+	"name": "Droneforce",
+	"description": "My first packaged app.",
+	"version": "0.1",
+	"app": {
+		"background": {
+			"scripts": ["background.js"]
+		}
+	},
+	"icons": { "16": "calculator-16.png", "128": "evilrobot-128.png" },
+	"permissions": [
+		"webview",
+		"https://c.eu2.visual.force.com/", //allow cross-origin XHR
+		{"socket": [
+			"udp-send-to::5552",
+			"udp-send-to::5556",
+			"tcp-connect:192.168.1.1:21",
+			"tcp-connect:127.0.0.1:80",
+			"tcp-connect:192.168.1.1:80",
+			"tcp-connect:192.168.1.1"
+		]}
+	]
+}
