@@ -37,6 +37,15 @@
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <fields>
+        <fullName>PushTopicId__c</fullName>
+        <externalId>true</externalId>
+        <label>PushTopicId</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <label>Flight</label>
     <listViews>
         <fullName>All</fullName>

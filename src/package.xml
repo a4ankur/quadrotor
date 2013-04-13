@@ -2,8 +2,17 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>droneforce</fullName>
     <types>
+        <members>FlightViewExtensionStream</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>FlightView</members>
         <members>Flights</members>
         <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Flight__c.PushTopicId__c</members>
+        <name>CustomField</name>
     </types>
     <types>
         <members>Flight__c</members>
