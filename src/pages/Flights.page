@@ -1,0 +1,15 @@
+<apex:page standardController="Flight__c" recordSetVar="flights" tabStyle="Flight__c" sidebar="false">
+    <apex:sectionHeader title="Current flights" />
+    <apex:pageBlock mode="maindetail">
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockTable value="{!flights}" var="flight">
+                <apex:column >
+                    <apex:outputLink value="{!URLFOR('/apex/FlightView', null, [id=flight.Id])}">
+                        Flight {!flight.Name}
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column value="{!flight.CreatedDate}" />
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

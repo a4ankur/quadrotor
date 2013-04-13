@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>droneforce</fullName>
+    <types>
+        <members>Flights</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Flight__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Flight__c-Flight Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Flight__c.All</members>
+        <name>ListView</name>
+    </types>
+    <version>27.0</version>
+</Package>
