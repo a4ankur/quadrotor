@@ -1,4 +1,3 @@
-
 /**
  * Poor man's FTP client
  * 
@@ -55,7 +54,13 @@ Ftp.prototype.retrieve = function(path, eofHandler) {
 	}, self.console);
 };
 
-Ftp.prototype.delete = function(path, callback) {
+/**
+ * Delete a file
+ * 
+ * @param path
+ * @param callback
+ */
+Ftp.prototype.deleteFile = function(path, callback) {
 	var self = this;
 	var controlSocket, binarySocket;
 	this.console && console.log('[Ftp]', 'delete', path);
@@ -73,6 +78,12 @@ Ftp.prototype.delete = function(path, callback) {
 	}, self.console);
 };
 
+/**
+ * Remove a directory
+ * 
+ * @param path
+ * @param callback
+ */
 Ftp.prototype.removeDirectory = function(path, callback) {
 	var self = this;
 	var controlSocket, binarySocket;
