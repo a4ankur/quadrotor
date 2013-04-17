@@ -5,14 +5,14 @@
  * @param callback
  * @constructor
  */
-function Socket(callback, console) {
+function TcpSocket(callback, console) {
 	var self = this;
 	this.console = console;
 	this.host  = '';
 	this.port  = 0;
 	this.info  = {};
 	chrome.socket.create('tcp', {}, function(socketInfo) {
-		self.console && self.console.log('[Socket]', 'create', socketInfo.socketId);
+		self.console && self.console.log('[TcpSocket]', 'create', socketInfo.socketId);
 		self.info = socketInfo;
 		callback && callback(socketInfo);
 	});
@@ -25,12 +25,12 @@ function Socket(callback, console) {
  * @param port
  * @param callback
  */
-Socket.prototype.connect = function(host, port, callback) {
+TcpSocket.prototype.connect = function(host, port, callback) {
 	var self = this;
 	this.host = host;
 	this.port = parseInt(port);
 	chrome.socket.connect(this.info.socketId, this.host, this.port, function(result) {
-		self.console && self.console.log('[Socket]', 'connect', self.host, self.port, result);
+		self.console && self.console.log('[TcpSocket]', 'connect', self.host, self.port, result);
 		callback && callback(result);
 	})
 };
@@ -41,10 +41,10 @@ Socket.prototype.connect = function(host, port, callback) {
  * @param string
  * @param callback
  */
-Socket.prototype.write = function(string, callback) {
+TcpSocket.prototype.write = function(string, callback) {
 	var self = this;
-	chrome.socket.write(this.info.socketId, Socket.string2buffer(string), function(writeInfo) {
-		self.console && self.console.log('[Socket]', 'write', self.host, self.port, string.replace(/[\r\n\t]/g, '.'));
+	chrome.socket.write(this.info.socketId, TcpSocket.string2buffer(string), function(writeInfo) {
+		self.console && self.console.log('[TcpSocket]', 'write', self.host, self.port, string.replace(/[\r\n\t]/g, '.'));
 		callback && callback(writeInfo);
 	});
 };
@@ -54,11 +54,11 @@ Socket.prototype.write = function(string, callback) {
  * 
  * @param callback
  */
-Socket.prototype.read = function(callback) {
+TcpSocket.prototype.read = function(callback) {
 	var self = this;
 	chrome.socket.read(this.info.socketId, function(readInfo) {
-		var string = Socket.buffer2string(readInfo.data);
-		self.console && self.console.log('[Socket]', 'read', self.host, self.port, string.replace(/[\r\n\t]/g, '.'));
+		var string = TcpSocket.buffer2string(readInfo.data);
+		self.console && self.console.log('[TcpSocket]', 'read', self.host, self.port, string.replace(/[\r\n\t]/g, '.'));
 		callback && callback(string);
 	});
 };
@@ -68,13 +68,14 @@ Socket.prototype.read = function(callback) {
  * 
  * @param callback
  */
-Socket.prototype.stream = function(callback) {
+TcpSocket.prototype.stream = function(callback) {
 	var self = this;
 	var blob = '';
 	
 	var handler = function(data) {
 		if (!data.length) {
 			//EOF
+			self.disconnect();
 			callback && callback(blob);
 		} else {
 			blob += data;
@@ -85,13 +86,18 @@ Socket.prototype.stream = function(callback) {
 	this.read(handler);
 };
 
+TcpSocket.prototype.disconnect = function() {
+	var self = this;
+	chrome.socket.disconnect(this.info.socketId);
+};
+
 /**
  * Convert ArrayBuffer to string
  * 
  * @param buffer
  * @return {Object}
  */
-Socket.buffer2string = function(buffer) {
+TcpSocket.buffer2string = function(buffer) {
 	return String.fromCharCode.apply(null, new Uint8Array(buffer));
 };
 
@@ -101,7 +107,7 @@ Socket.buffer2string = function(buffer) {
  * @param string
  * @return {ArrayBuffer}
  */
-Socket.string2buffer = function(string) {
+TcpSocket.string2buffer = function(string) {
 	var buffer = new ArrayBuffer(string.length);
 	var view = new Uint8Array(buffer);
 	var chars = string.split('');
