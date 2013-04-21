@@ -4,11 +4,8 @@ Faye.MANDATORY_CONNECTION_TYPES.push('cross-origin-long-polling'); //we need Fay
 Faye.Transport.register('long-polling', Faye.Transport.CORS); //we need Faye to rename CORS as 'long-polling' not 'cross-origin-long-polling' otherwise SALESFORCE will complain there are no compatible transports
 
 function Stream(instance, session) {
-	this.instance = instance;
-	this.session  = session;
-	
-	this.client = new Faye.Client(this.instance + '/cometd/27.0');
-	this.client.setHeader('Authorization', 'OAuth' + ' ' + this.session);
+	this.client = new Faye.Client(instance + '/cometd/27.0');
+	this.client.setHeader('Authorization', 'OAuth' + ' ' + session);
 	this.client.setHeader('Content-Type', 'application/x-www-form-urlencoded');
 }
 
@@ -17,4 +14,3 @@ Stream.prototype.subscribe = function(topicName, callback) {
 		callback(response.sobject, response.event);
 	});
 };
-
