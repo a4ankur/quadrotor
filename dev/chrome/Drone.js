@@ -5,7 +5,7 @@ function Drone(host, console) {
 	this.port    = 5556;
 }
 
-Drone.prototype.handshake = function() {
+Drone.prototype.handshake = function(callback) {
 	var self = this;
 	var commandSocket;
 	var data = 'PARROT AUTH';
@@ -14,8 +14,8 @@ Drone.prototype.handshake = function() {
 	commandSocket = new UdpSocket(function() {
 		commandSocket.connect(self.host, 5552, function() {
 			commandSocket.write('PARROT AUTH', function() {
-				commandSocket.read(function() {
-					commandSocket.disconnect();
+				commandSocket.read(function(data) {
+					callback && callback(data);
 				});
 			});
 		});
