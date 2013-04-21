@@ -21,8 +21,7 @@ function Ftp(host, port, console) {
 Ftp.pasv2port = function(pasv) {
 	//227 PASV ok (192,168,1,1,129,178)
 	var pasvs = pasv.match(/\d+/g); //["227", "192", "168", "1", "1", "129", "178"]
-	var port = parseInt(pasvs[6]) + 256 * parseInt(pasvs[5]); //33202
-	return port;
+	return parseInt(pasvs[6]) + 256 * parseInt(pasvs[5]); //33202
 };
 
 /**
@@ -35,16 +34,18 @@ Ftp.prototype.retrieve = function(path, eofHandler) {
 	var self = this;
 	var controlSocket, binarySocket; //commands usually 21, transfers usually > 1023
 	//callback hell
-	this.console && console.log('[Ftp]', 'retrieve', path);
-	controlSocket = new Socket(function() {
+	this.console && this.console.log('[Ftp]', 'retrieve', path);
+	controlSocket = new Socket('tcp', function() {
 		controlSocket.connect(self.host, self.port, function() {
 			controlSocket.read(function(data) {
 				controlSocket.write('PASV\r\n', function() {
 					controlSocket.read(function(pasv) {
-						binarySocket = new Socket(function() {
+						binarySocket = new Socket('tcp', function() {
 							binarySocket.connect(self.host, Ftp.pasv2port(pasv), function() {
-								controlSocket.write('RETR ' + path + '\r\n');
-								binarySocket.stream(eofHandler);
+								controlSocket.write('RETR ' + path + '\r\n', function() {
+									binarySocket.stream(eofHandler);
+									controlSocket.disconnect();
+								});
 							});
 						}, self.console);
 					});
@@ -62,14 +63,14 @@ Ftp.prototype.retrieve = function(path, eofHandler) {
  */
 Ftp.prototype.deleteFile = function(path, callback) {
 	var self = this;
-	var controlSocket, binarySocket;
-	this.console && console.log('[Ftp]', 'delete', path);
-	controlSocket = new Socket(function() {
+	var controlSocket;
+	this.console && this.console.log('[Ftp]', 'delete', path);
+	controlSocket = new Socket('tcp', function() {
 		controlSocket.connect(self.host, self.port, function() {
-			controlSocket.read(function(data) {
+			controlSocket.read(function() {
 				controlSocket.write('DELE ' + path + '\r\n', function() {
-					controlSocket.read(function(operation) {
-						//console.log(operation);
+					controlSocket.read(function() {
+						controlSocket.disconnect();
 						callback && callback();
 					});
 				});
@@ -86,14 +87,14 @@ Ftp.prototype.deleteFile = function(path, callback) {
  */
 Ftp.prototype.removeDirectory = function(path, callback) {
 	var self = this;
-	var controlSocket, binarySocket;
-	this.console && console.log('[Ftp]', 'removeDirectory', path);
-	controlSocket = new Socket(function() {
+	var controlSocket;
+	this.console && this.console.log('[Ftp]', 'removeDirectory', path);
+	controlSocket = new Socket('tcp', function() {
 		controlSocket.connect(self.host, self.port, function() {
-			controlSocket.read(function(data) {
+			controlSocket.read(function() {
 				controlSocket.write('RMD ' + path + '\r\n', function() {
-					controlSocket.read(function(operation) {
-						//console.log(operation);
+					controlSocket.read(function() {
+						controlSocket.disconnect();
 						callback && callback();
 					});
 				});

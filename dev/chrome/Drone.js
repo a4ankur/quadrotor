@@ -11,7 +11,7 @@ Drone.prototype.handshake = function(callback) {
 	var data = 'PARROT AUTH';
 	//port 5552
 	this.console && this.console.log('[Drone]', 'sayHello', data);
-	commandSocket = new UdpSocket(function() {
+	commandSocket = new Socket('udp', function() {
 		commandSocket.connect(self.host, 5552, function() {
 			commandSocket.write('PARROT AUTH', function() {
 				commandSocket.read(function(data) {
@@ -27,7 +27,7 @@ Drone.prototype.transmitDatagram = function(command) {
 	var commandSocket;
 	//port 5556
 	this.console && this.console.log('[Drone]', 'transmitDatagram', self.host, self.port, command.replace(/[\r\n\t]/g, '.'));
-	commandSocket = new UdpSocket(function() {
+	commandSocket = new Socket('udp', function() {
 		commandSocket.connect(self.host, self.port, function() {
 			commandSocket.write(command, function() {
 				commandSocket.read();
