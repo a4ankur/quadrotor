@@ -1,9 +1,7 @@
 
-function OAuth(username, password, security) {
-	this.xhr = new XMLHttpRequest();
-	this.username = username;
-	this.password = password;
-	this.security = security;
+function OAuth(client, secret) {
+	this._client = client;
+	this._secret = secret;
 	
 	this.response = {
 		access_token : '', //eg 00Db0000000K3WN!AQgAQIREObEmJRPUrcMflX8MHr339DH0JzD3tpPXX_.79oKUhErmlO3f27n0JOhaE0fnBW827qGGSPD7a.ZMxqgApMsPKgDb
@@ -14,22 +12,24 @@ function OAuth(username, password, security) {
 	};
 }
 
-OAuth.prototype.login = function(callback) {
+OAuth.prototype.login = function(username, password, security, callback) {
 	var self = this;
-	this.xhr.onreadystatechange = function() {
-		if (self.xhr.readyState != 4) return; //nothing to do
-		
-		self.response = JSON.parse(self.xhr.response);
-		callback && callback(self.response);
-	};
+	var xhr = new XMLHttpRequest();
 	
-	this.xhr.open('POST', 'https://login.salesforce.com/services/oauth2/token', true);
-	this.xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	this.xhr.send([
+	xhr.open('POST', 'https://login.salesforce.com/services/oauth2/token', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onreadystatechange = handler;
+	xhr.send([
 		'grant_type'    + '=' + 'password',
-		'client_id'     + '=' + '3MVG99qusVZJwhsmj9swFUL3kw_wkILexqNpf80RYxI1KmHJ6tA6mvnYEUBKlHPt_tKm49Fb7CnUYLDV.JK75',
-		'client_secret' + '=' + '403731136750814498',
-		'username'      + '=' + encodeURIComponent(this.username),
-		'password'      + '=' + encodeURIComponent(this.password) + encodeURIComponent(this.security)
+		'client_id'     + '=' + this._client,
+		'client_secret' + '=' + this._secret,
+		'username'      + '=' + encodeURIComponent(username),
+		'password'      + '=' + encodeURIComponent(password) + encodeURIComponent(security)
 	].join('&'));
+	
+	function handler() {
+		if (xhr.readyState != 4) return; //nothing to do
+		self.response = JSON.parse(xhr.response);
+		callback && callback(self.response);
+	}
 };
