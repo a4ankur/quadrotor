@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>AbsoluteControlEnable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Absolute Control enable</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Accuracy__c</fullName>
+        <externalId>false</externalId>
+        <label>Accuracy</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bits__c</fullName>
+        <externalId>false</externalId>
+        <formula>/* bit 00 */0 * 1
+/* bit 01 */+ 0 * 2
+/* bit 02 */+ 0 * 4
+/* bit 03 */+ 0 * 8
+/* bit 04 */+ 0 * 16
+/* bit 05 */+ 0 * 32
+/* bit 06 */+ 0 * 64
+/* bit 07 */+ 0 * 128
+/* bit 08 */+ IF(Emergency__c, 1, 0)  * 256
+/* bit 09 */+ IF(Launch__c, 1, 0)  * 512
+/* bit 10 */+ 0 * 1024
+/* bit 11 */+ 0 * 2048
+/* bit 12 */+ 0 * 4096
+/* bit 13 */+ 0 * 8192
+/* bit 14 */+ 0 * 16384
+/* bit 15 */+ 0 * 32768
+/* bit 16 */+ 0 * 65536
+/* bit 17 */+ 0 * 131072
+/* bit 18 */+ 1 * 262144 /* should be set */
+/* bit 19 */+ 0 * 524288
+/* bit 20 */+ 1 * 1048576 /* should be set */
+/* bit 21 */+ 0 * 2097152
+/* bit 22 */+ 1 * 4194304 /* should be set */
+/* bit 23 */+ 0 * 8388608
+/* bit 24 */+ 1 * 16777216 /* should be set */
+/* bit 25 */+ 0 * 33554432
+/* bit 26 */+ 0 * 67108864
+/* bit 27 */+ 0 * 134217728
+/* bit 28 */+ 1 * 268435456 /* should be set */
+/* bit 29 */+ 0 * 536870912
+/* bit 30 */+ 0 * 1073741824
+/* bit 31 */+ 0 * 2147483648</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bits</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Body__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(RecordType.Name,
+
+&apos;AT*CONFIG&apos;,
+&apos;AT*CONFIG=&apos; + TEXT(Sequence__c) + &apos;,&apos; + &apos;&quot;&apos; + ConfigKey__c + &apos;&quot;,&quot;&apos; + ConfigValue__c + &apos;&quot;&apos;,
+
+&apos;AT*CONFIG_IDS&apos;,
+&apos;AT*CONFIG_IDS=&apos; + TEXT(Sequence__c) + &apos;,&apos; + &apos;&quot;&apos; +  Flight__r.SessionId__c  + &apos;&quot;,&quot;&apos; +  Flight__r.ProfileId__c  + &apos;&quot;,&quot;&apos; +  Flight__r.ApplicationId__c  + &apos;&quot;&apos;,
+
+&apos;AT*PCMD&apos;,
+&apos;AT*PCMD=&apos; + TEXT(Sequence__c) + &apos;,&apos; + TEXT(Flags__c) + &apos;,&apos; + TEXT(Roll754__c) + &apos;,&apos; + TEXT(Pitch754__c) + &apos;,&apos; + TEXT(Gaz754__c) + &apos;,&apos; + TEXT(Yaw754__c),
+
+&apos;AT*REF&apos;,
+&apos;AT*REF=&apos; + TEXT(Sequence__c) + &apos;,&apos; + TEXT(Bits__c),
+
+&apos;default&apos;)</formula>
+        <label>Body</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CombinedYawEnable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>CombinedYawEnable</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ConfigKey__c</fullName>
+        <externalId>false</externalId>
+        <label>ConfigKey</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ConfigValue__c</fullName>
+        <externalId>false</externalId>
+        <label>ConfigValue</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Emergency__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Emergency</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Flags__c</fullName>
+        <externalId>false</externalId>
+        <formula>/* bit 00 */IF(ProgressiveCommandsEnable__c, 1, 0) * 1
+/* bit 01 */+ IF(CombinedYawEnable__c, 1, 0) * 2
+/* bit 02 */+ IF(AbsoluteControlEnable__c, 1, 0) * 4</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Flags</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flight__c</fullName>
+        <externalId>false</externalId>
+        <label>Flight</label>
+        <referenceTo>Flight__c</referenceTo>
+        <relationshipLabel>Commands</relationshipLabel>
+        <relationshipName>Commands</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Gaz754__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Gaz__c,
+0.00, 0,
+0.01, 1008981770,
+0.02, 1017370378,
+0.03, 1022739087,
+0.04, 1025758986,
+0.05, 1028443341,
+0.06, 1031127695,
+0.07, 1032805417,
+0.08, 1034147594,
+0.09, 1035489772,
+0.10, 1036831949,
+0
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gaz754</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gaz__c</fullName>
+        <externalId>false</externalId>
+        <label>Gaz</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Launch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Launch</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pitch754__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Pitch__c,
+0.00, 0,
+0.01, 1008981770,
+0.02, 1017370378,
+0.03, 1022739087,
+0.04, 1025758986,
+0.05, 1028443341,
+0.06, 1031127695,
+0.07, 1032805417,
+0.08, 1034147594,
+0.09, 1035489772,
+0.10, 1036831949,
+0
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pitch754</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pitch__c</fullName>
+        <externalId>false</externalId>
+        <label>Pitch</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>ProgressiveCommandsEnable__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Progressive commands enable</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Psi__c</fullName>
+        <externalId>false</externalId>
+        <label>Psi</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Roll754__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Roll__c,
+0.00, 0,
+0.01, 1008981770,
+0.02, 1017370378,
+0.03, 1022739087,
+0.04, 1025758986,
+0.05, 1028443341,
+0.06, 1031127695,
+0.07, 1032805417,
+0.08, 1034147594,
+0.09, 1035489772,
+0.10, 1036831949,
+0
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Roll754</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Roll__c</fullName>
+        <externalId>false</externalId>
+        <label>Roll</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Sequence__c</fullName>
+        <externalId>false</externalId>
+        <label>Sequence</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Yaw754__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Yaw__c,
+0.00, 0,
+0.01, 1008981770,
+0.02, 1017370378,
+0.03, 1022739087,
+0.04, 1025758986,
+0.05, 1028443341,
+0.06, 1031127695,
+0.07, 1032805417,
+0.08, 1034147594,
+0.09, 1035489772,
+0.10, 1036831949,
+0.11, 1038174126,
+0.12, 1039516303,
+0.13, 1040522936,
+0.14, 1041194025,
+0.15, 1041865114,
+0.16, 1042536202,
+0.17, 1043207291,
+0.18, 1043878380,
+0.19, 1044549468,
+0.20, 1045220557,
+0.21, 1045891645,
+0.22, 1046562734,
+0.23, 1047233823,
+0.24, 1047904911,
+0.25, 1048576000,
+0.26, 1048911544,
+0.27, 1049247089,
+0.28, 1049582633,
+0.29, 1049918177,
+0.30, 1050253722,
+0.31, 1050589266,
+0.32, 1050924810,
+0.33, 1051260355,
+0.34, 1051595899,
+0.35, 1051931443,
+0.36, 1052266988,
+0.37, 1052602532,
+0.38, 1052938076,
+0.39, 1053273620,
+0.40, 1053609165,
+0.41, 1053944709,
+0.42, 1054280253,
+0.43, 1054615798,
+0.44, 1054951342,
+0.45, 1055286886,
+0.46, 1055622431,
+0.47, 1055957975,
+0.48, 1056293519,
+0.49, 1056629064,
+0.50, 1056964608,
+0.51, 1057132380,
+0.52, 1057300152,
+0.53, 1057467924,
+0.54, 1057635697,
+0.55, 1057803469,
+0.56, 1057971241,
+0.57, 1058139013,
+0.58, 1058306785,
+0.59, 1058474557,
+0.60, 1058642330,
+0.61, 1058810102,
+0.62, 1058977874,
+0.63, 1059145646,
+0.64, 1059313418,
+0.65, 1059481190,
+0.66, 1059648963,
+0.67, 1059816735,
+0.68, 1059984507,
+0.69, 1060152279,
+0.70, 1060320051,
+0.71, 1060487823,
+0.72, 1060655596,
+0.73, 1060823368,
+0.74, 1060991140,
+0.75, 1061158912,
+0.76, 1061326684,
+0.77, 1061494456,
+0.78, 1061662228,
+0.79, 1061830001,
+0.80, 1061997773,
+0.81, 1062165545,
+0.82, 1062333317,
+0.83, 1062501089,
+0.84, 1062668861,
+0.85, 1062836634,
+0.86, 1063004406,
+0.87, 1063172178,
+0.88, 1063339950,
+0.89, 1063507722,
+0.90, 1063675494,
+0.91, 1063843267,
+0.92, 1064011039,
+0.93, 1064178811,
+0.94, 1064346583,
+0.95, 1064514355,
+0.96, 1064682127,
+0.97, 1064849900,
+0.98, 1065017672,
+0.99, 1065185444,
+0
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Yaw754</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Yaw__c</fullName>
+        <externalId>false</externalId>
+        <label>Yaw</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Percent</type>
+    </fields>
+    <label>Command</label>
+    <nameField>
+        <displayFormat>CMD-{0}</displayFormat>
+        <label>Command Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Commands</pluralLabel>
+    <recordTypes>
+        <fullName>AT_CALIB</fullName>
+        <active>true</active>
+        <description>Ask the drone to calibrate the magnetometer (must be ﬂying)</description>
+        <label>AT*CALIB</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_COMWDG</fullName>
+        <active>true</active>
+        <description>Reset the communication watchdog</description>
+        <label>AT*COMWDG</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_CONFIG</fullName>
+        <active>true</active>
+        <description>Conﬁguration of the AR.Drone 2.0</description>
+        <label>AT*CONFIG</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_CONFIG_IDS</fullName>
+        <active>true</active>
+        <description>Identiﬁers for AT*CONFIG commands</description>
+        <label>AT*CONFIG_IDS</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_FTRIM</fullName>
+        <active>true</active>
+        <description>Sets the reference for the horizontal plane (must be on ground)</description>
+        <label>AT*FTRIM</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_PCMD</fullName>
+        <active>true</active>
+        <description>Move the drone</description>
+        <label>AT*PCMD</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_PCMD_MAG</fullName>
+        <active>true</active>
+        <description>Move the drone (with Absolute Control support)</description>
+        <label>AT*PCMD_MAG</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>AT_REF</fullName>
+        <active>true</active>
+        <description>Takeoff/Landing/Emergency stop command</description>
+        <label>AT*REF</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

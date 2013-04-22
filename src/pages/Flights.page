@@ -1,4 +1,5 @@
 <apex:page standardController="Flight__c" recordSetVar="flights" tabStyle="Flight__c" sidebar="false">
+    Session:{!GETSESSIONID()}
     <apex:sectionHeader title="Current flights" />
     <apex:pageBlock mode="maindetail">
         <apex:pageBlockSection columns="1">
