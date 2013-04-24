@@ -103,7 +103,7 @@
         <formula>CASE(RecordType.Name,
 
 &apos;AT*CONFIG&apos;,
-&apos;AT*CONFIG=&apos; + TEXT(Sequence__c) + &apos;,&apos; + &apos;&quot;&apos; + ConfigKey__c + &apos;&quot;,&quot;&apos; + ConfigValue__c + &apos;&quot;&apos;,
+&apos;AT*CONFIG=&apos; + TEXT(Sequence__c) + &apos;,&apos; + &apos;&quot;&apos; + ConfigParam__c + &apos;&quot;,&quot;&apos; + ConfigValue__c + &apos;&quot;&apos;,
 
 &apos;AT*CONFIG_IDS&apos;,
 &apos;AT*CONFIG_IDS=&apos; + TEXT(Sequence__c) + &apos;,&apos; + &apos;&quot;&apos; +  Flight__r.SessionId__c  + &apos;&quot;,&quot;&apos; +  Flight__r.ProfileId__c  + &apos;&quot;,&quot;&apos; +  Flight__r.ApplicationId__c  + &apos;&quot;&apos;,
@@ -128,9 +128,9 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>ConfigKey__c</fullName>
+        <fullName>ConfigParam__c</fullName>
         <externalId>false</externalId>
-        <label>ConfigKey</label>
+        <label>ConfigParam</label>
         <length>255</length>
         <required>false</required>
         <type>Text</type>
@@ -438,6 +438,11 @@
         <type>Percent</type>
     </fields>
     <label>Command</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>CMD-{0}</displayFormat>
         <label>Command Name</label>
