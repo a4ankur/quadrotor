@@ -1,6 +1,5 @@
-
 /**
- * Poor man's socket wrapper
+ * Object-oriented socket wrapper
  * 
  * @param callback
  * @constructor
