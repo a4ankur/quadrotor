@@ -1,9 +1,9 @@
 /**
  * Poor man's FTP client
  * 
- * @param host
- * @param port
- * @param console
+ * @param {String} host
+ * @param {Number} port
+ * @param {Object} console
  * @constructor
  */
 function Ftp(host, port, console) {
@@ -15,7 +15,7 @@ function Ftp(host, port, console) {
 /**
  * Convert passive response to port number
  * 
- * @param pasv
+ * @param {String} pasv
  * @return {Number}
  */
 Ftp.pasv2port = function(pasv) {
@@ -27,8 +27,8 @@ Ftp.pasv2port = function(pasv) {
 /**
  * Download a file
  * 
- * @param path
- * @param callback
+ * @param {String} path
+ * @param {Function} callback
  */
 Ftp.prototype.retrieve = function(path, eofHandler) {
 	var self = this;
@@ -58,8 +58,8 @@ Ftp.prototype.retrieve = function(path, eofHandler) {
 /**
  * Delete a file
  * 
- * @param path
- * @param callback
+ * @param {String} path
+ * @param {Function} callback
  */
 Ftp.prototype.deleteFile = function(path, callback) {
 	var self = this;
@@ -82,8 +82,8 @@ Ftp.prototype.deleteFile = function(path, callback) {
 /**
  * Remove a directory
  * 
- * @param path
- * @param callback
+ * @param {String} path
+ * @param {Function} callback
  */
 Ftp.prototype.removeDirectory = function(path, callback) {
 	var self = this;
@@ -103,6 +103,12 @@ Ftp.prototype.removeDirectory = function(path, callback) {
 	}, self.console);
 };
 
+/**
+* Get contents of a directory listing
+*
+* @param {String} path
+* @param {Function} callback
+*/
 Ftp.prototype.listDirectory = function(path, callback) {
 	var self = this;
 	var controlSocket, binarySocket; //commands usually 21, transfers usually > 1023
