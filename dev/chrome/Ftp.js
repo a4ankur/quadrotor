@@ -103,3 +103,27 @@ Ftp.prototype.removeDirectory = function(path, callback) {
 	}, self.console);
 };
 
+Ftp.prototype.listDirectory = function(path, callback) {
+	var self = this;
+	var controlSocket, binarySocket; //commands usually 21, transfers usually > 1023
+	//callback hell
+	this.console && this.console.log('[Ftp]', 'listDirectory', path);
+	controlSocket = new Socket('tcp', function() {
+		controlSocket.connect(self.host, self.port, function() {
+			controlSocket.read(function(data) {
+				controlSocket.write('PASV\r\n', function() {
+					controlSocket.read(function(pasv) {
+						binarySocket = new Socket('tcp', function() {
+							binarySocket.connect(self.host, Ftp.pasv2port(pasv), function() {
+								controlSocket.write('LIST ' + path + '\r\n', function() {
+									binarySocket.stream(callback);
+									controlSocket.disconnect();
+								});
+							});
+						}, self.console);
+					});
+				});
+			});
+		});
+	}, self.console);
+};
