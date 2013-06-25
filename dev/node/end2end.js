@@ -22,7 +22,7 @@ var interval;
 
 //handshake
 console.log('PARROT AUTH');
-transmitDatagram('192.168.1.1', 5552, 'PARROT AUTH');
+transmitDatagram('10.1.1.222', 5552, 'PARROT AUTH');
 
 
 //process.exit();
@@ -33,7 +33,7 @@ var intervalHandler = function() {
 	if (!command) process.exit();
 	
 	console.log(command);
-	transmitDatagram('192.168.1.1', 5556, command + "\r");
+	transmitDatagram('10.1.1.222', 5556, command + "\r");
 };
 
 interval = setInterval(intervalHandler, 500);

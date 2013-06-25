@@ -1,0 +1,8 @@
+<apex:page standardController="Flight__c" tabStyle="Flight__c" extensions="FlightViewExtensionStream" action="{!insertPushTopic}">
+    <apex:pageBlock mode="maindetail">
+        <apex:pageBlockSection columns="1" title="Push Topic">
+            Push Topic Name: {!PushTopicName}
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:detail subject="{!Flight__c}" />
+</apex:page>
